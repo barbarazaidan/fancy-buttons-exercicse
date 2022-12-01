@@ -284,29 +284,30 @@ class App extends React.Component {
   }
 
   showClickGreen() {
-    const { clicksGreen } = this.state;
+    // const { clicksGreen } = this.state; // esta desestruturação fica deseatualizada
     // console.log('clicksGreen: ', clicksGreen)
     // console.log('clicou no verde!')
-     console.log('este é o this verde: ', this)
+    console.log('este é o this verde: ', this) // aqui já fica com o valor do state atualizado
+    console.log('este é o this.state verde: ', this.state) // aqui não fica atualizado, ele mostra o estado anterior
     this.setState((estadoAnterior) => ({
       clicksGreen: estadoAnterior.clicksGreen + 1
     }), 
-    console.log('clicksGreen: ', clicksGreen),
     () => {
-      console.log(`Botão 3 ${this.changeBackground(clicksGreen)}`);
+      const { clicksGreen } = this.state; // este console vai guardar o valor atualizado 
+      console.log('clicksGreen: ', clicksGreen);
+      // console.log(`Botão 3 ${this.changeBackground(clicksGreen)}`);
     });
-    // console.log('depois: ', clicksGreen)
   }
 
   changeBackground(number) {
-    console.log('number: ', number)
+    // console.log('number: ', number)
     if (number % 2 === 0) {
-      return 'pink';
+      return 'gray';
    } return 'green';
   }
 
   render(){
-    // console.log('this do render: ', this);
+     console.log('this do render: ', this);
     const { clicksBlue, clicksGreen, clicksRed } = this.state;
     return (
       <>
@@ -315,7 +316,7 @@ class App extends React.Component {
         <button 
           className='green'
           onClick={this.showClickGreen}
-          style={ {backgroundColor: () => this.changeBackground(clicksGreen)} }
+          style={ {backgroundColor: this.changeBackground(clicksGreen)} }
         >
           {clicksGreen}
         </button>
